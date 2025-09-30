@@ -1,0 +1,21 @@
+Variable	Unit	Description	Value Range
+SpO₂	%	Peripheral oxygen saturation	95–100%
+HR	bpm	Heart rate from pulse oximeter	60–100 bpm
+PI	%	Perfusion index	0.2–20%
+RR	breaths/min	Respiratory rate	12–20 breaths/min
+EtCO₂	mmHg	End-tidal carbon dioxide	35–45 mmHg
+FiO₂	%	Fraction of inspired oxygen	21–100%
+PRV	ms	Pulse rate variability	20–200 ms
+BP	mmHg	Blood pressure (systolic diastolic mean)	90/60–120/80 mmHg
+Skin Temperature	°C	Peripheral temperature	33–38 °C
+Motion/Activity index	-	Sensor artifact correction	
+PVI	%	Pleth Variability Index	10–20%
+Hb level	g/dL	Hemoglobin concentration	12–18 g/dL
+SV	mL/beat	Stroke volume	60–100 mL/beat
+CO	L/min	Cardiac output	4–8 L/min
+Blood Flow Index	-	Optical/near-infrared blood flow measurement	Relative units
+PPG waveform features	-	Photoplethysmography signal parameters	
+Signal Quality Index	-	Reliability indicator of readings	0–100
+Respiratory effort	-	Chest impedance or belt-derived effort	
+O₂ extraction ratio	-	Calculated oxygen extraction metric	0.2–0.3
+SNR	dB	Signal-to-noise ratio from sensor	20–40 dB
