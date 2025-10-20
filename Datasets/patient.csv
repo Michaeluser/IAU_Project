@@ -61,7 +61,7 @@ South Jennifershire, TN 79254"	29 Jan 2019	(Decimal('-12.2925165'), Decimal('127
 	"Sieringstraße 65/71
 26885 Hohenmölsen"	2018-10-05	(Decimal('-58.188234'), Decimal('114.902904'))	Gutknecht		324-23-0775	250	beatrice37	krystynabarkholz@hotmail.de	Henner Henk	B-	71
 		2022/03/20	(Decimal('7.7507945'), Decimal('-42.846609'))	伊藤農林合同会社		711-49-8943	1898	yumikosasaki	ryosukekimura@gmail.com	後藤 裕樹	AB+	286
-\d{2}/\d{2}/\d{4}	"Esplanada Andrade, 3
+	"Esplanada Andrade, 3
 Vila Antena
 64066572 Freitas / MS"	2019/08/26	(Decimal('-62.4724915'), Decimal('61.509813'))	Fonseca		95438720150	1610	pietroborges	santosthomas@ig.com.br	Ana Carolina Fonseca	O+	675
 	"08576 Thomas Islands Suite 764
@@ -2656,9 +2656,7 @@ APO AP 41463"	06/01/2025, 00:00:00	(Decimal('-7.528341'), Decimal('135.675347'))
 	"Rotonda Fuseli, 77
 14040, Castelletto Molina (AT)"	2023-10-29	(Decimal('-36.2577995'), Decimal('-121.988912'))	Regge-Farnese e figli		NCHPTZ61L21H994F	684	maura73	xjacuzzi@vodafone.it	Gino Nitti-Tosi	B-	703
 	長崎県東久留米市麹町20丁目24番15号	10/26/2022, 00:00:00	(Decimal('-9.745251'), Decimal('134.196018'))	加藤運輸株式会社	2017-10-22	899-59-5087	2038	mai17	kyosukenakamura@gmail.com	藤田 智也	O-	31
-	"Viaduto Cauê Araújo, 94
-Ipe
-11051-487 Caldeira da Prata / PI"	2021-11-15		Sá Guerra - EI	1959-07-01	03657892168	739	novaisfernanda	mdias@uol.com.br	Ravy Macedo	A+	731
+	"Viaduto Cauê Araújo, 94 Ipe 11051-487 Caldeira da Prata / PI"	2021-11-15		Sá Guerra - EI	1959-07-01	03657892168	739	novaisfernanda	mdias@uol.com.br	Ravy Macedo	A+	731
 	"Scheelplatz 477
 88996 Erding"	2025/08/11	(Decimal('-6.8214515'), Decimal('-19.742851'))	Scholz Geißler GmbH		982-70-0547	1298	annaliese54	elfriede76@gmail.com	Utz Freudenberger-Bolander	A+	385
 		01/01/2022, 00:00:00	(Decimal('26.654805'), Decimal('-49.614216'))	Costa Ltda.		17539840684	720	isabelly32	lucassousa@bol.com.br	Raquel Gomes	AB+	639

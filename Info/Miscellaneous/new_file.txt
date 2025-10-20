@@ -1,0 +1,20 @@
+SpO₂ - Peripheral oxygen saturation | (95–100%)<br>
+HR - Heart rate from pulse oximeter | (60–100 bpm)<br>
+PI - Perfusion index | (0.2–20%)<br>
+RR - Respiratory rate | (12–20 breaths/min)<br>
+EtCO₂ - End-tidal carbon dioxide | (35–45 mmHg)<br>
+FiO₂ - Fraction of inspired oxygen | (21–100%)<br>
+PRV - Pulse rate variability | (20–200 ms)<br>
+BP - Blood pressure (systolic diastolic mean) | (90/60–120/80 mmHg)<br>
+Skin Temperature - Peripheral temperature | (33–38 °C)<br>
+Motion/Activity index - Sensor artifact correction | (Relative units)<br>
+PVI - Pleth Variability Index | (10–20%)<br>
+Hb level - Hemoglobin concentration | (12–18 g/dL)<br>
+SV - Stroke volume | (60–100 mL/beat)<br>
+CO - Cardiac output | (4–8 L/min)<br>
+Blood Flow Index - Optical/near-infrared blood flow measurement | (Relative units)<br>
+PPG waveform features - Photoplethysmography signal parameters | (Relative units)<br>
+Signal Quality Index - Reliability indicator of readings | (0–100)<br>
+Respiratory effort - Chest impedance or belt-derived effort | (Relative units)<br>
+O₂ extraction ratio - Calculated oxygen extraction metric | (0.2–0.3)<br>
+SNR - Signal-to-noise ratio from sensor | (20–40 dB)<br>
