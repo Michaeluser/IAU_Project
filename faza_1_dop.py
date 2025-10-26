@@ -493,35 +493,3 @@ print(f"  Požadovaná veľkosť vzorky pre power=0.8: {int(required_n)} na skup
 
 print("\n\n" + "=" * 80)
 
-
-
-
-
-
-
-
-
-
-
-
-detected_outliers = detect_outliers(observations, "PVI")
-outliers_perc = (detected_outliers.sum()/observations["PVI"].count()) * 100
-print(f"{outliers_perc:.2f}%")
-
-print(observations[~detected_outliers]["PVI"].mean())
-print(observations[~detected_outliers]["PVI"].median())
-print(observations[~detected_outliers]["PVI"].var())
-
-
-
-
-
-mask_n = (observations["SpO₂"] > spo2_limit) & (observations["FiO₂"] < fio2_limit)
-mask_n = (observations["SV"] > sv_limit_h) & (observations["CO"] < co_limit)   
-mask_n = (observations["Respiratory effort"] > re_limit) & (observations["Blood Flow Index"] < bfi_limit)
-mask_n = (observations["PRV"] > prv_limit) & (observations["Blood Flow Index"] < bfi_limit)
-mask_n = (observations["Skin Temperature"] > st_limit_h) & (observations["HR"] < hr_limit_l)
-mask_n = (observations["Skin Temperature"] > st_limit_l) & (observations["Blood Flow Index"] < bfi_limit)
-mask_n = (observations["RR"] > rr_limit) & (observations["HR"] < hr_limit)
-mask_n = (observations["PVI"] > pvi_limit) & (observations["SV"] > sv_limit_l)
-mask_n = (observations["O₂ extraction ratio"] > o2er_limit) & (observations["CO"] < co_limit)
