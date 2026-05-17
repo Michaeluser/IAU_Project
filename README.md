@@ -1,39 +1,45 @@
 # Critical Oxygen Saturation Estimation
 
-A data science project for predicting **oxygen saturation** (`oximetry`) from multimodal patient sensor data. The dataset contains physiological readings such as SpO₂, heart rate, respiratory rate, hemoglobin levels, and more. The task is a binary classification problem: predicting whether a patient's oxygen saturation is in a critical or normal range.
+A binary classification pipeline predicting whether a patient's **oxygen saturation** (`oximetry`) is critical or normal, built from multimodal sensor data. Implemented in Python using pandas, scikit-learn, scipy, and statsmodels across a structured three-phase data science workflow.
 
 **Authors:** Mykhailo Chepara, Bei Veronika
 
 ## Dataset
 
-The dataset consists of three related files — patient records, observation readings, and station metadata — merged across a shared time and station identifier. Sensor variables include SpO₂, HR, RR, EtCO₂, FiO₂, PRV, Skin Temperature, PVI, Hb level, SV, CO, Blood Flow Index, O₂ extraction ratio, SNR, and others.
+Three source files merged on station ID and timestamp: patient records (demographics, registration time, station assignment), observation readings (sensor values per visit), and station metadata (QoS ratings). The target variable `oximetry` is binary. Input features include SpO₂, HR, RR, EtCO₂, FiO₂, PRV, BP, Skin Temperature, PVI, Hb level, SV, CO, Blood Flow Index, O₂ extraction ratio, SNR, and others. `patient.csv` had a corrupted structure and was reparsed with a custom line-by-line reformatter before loading.
 
-## Project Structure
+## Phase 1 — EDA & Data Cleaning
 
-The project is a single Jupyter notebook (`project.ipynb`) organized into three phases:
+- Per-attribute descriptive statistics and distribution analysis for 10+ variables; out-of-range values flagged against known physiological bounds (e.g. SpO₂ 95–100%, HR 60–100 bpm)
+- Outlier detection via IQR (±1.5×IQR) and 3-SD methods; outliers representing >1.5% of a column replaced by median or capped at the 5th/95th percentile, smaller fractions dropped outright
+- Mixed date format unification across 5 format patterns using a custom parser
+- QoS encoded ordinally: `maintenance=0`, `acceptable=1`, `good=2`, `excellent=3`
+- Pairwise correlation analysis and dependency analysis against `oximetry`
+- Two statistical hypotheses formulated and tested with appropriate tests (t-test / Mann-Whitney); statistical power verified
 
-**Phase 1 — Exploratory Data Analysis**
-- Structural analysis of all three source files
-- Per-attribute distribution and descriptive statistics for 10+ variables
-- Pairwise correlation analysis and dependency analysis against the target variable
-- Outlier detection using IQR and 3-SD methods; outliers handled by removal or capping/median substitution depending on their proportion
-- Inconsistency detection: mixed date formats, corrupted file structure (`patient.csv`), out-of-range sensor values
-- Statistical hypothesis testing with power analysis
+## Phase 2 — Preprocessing & Feature Selection
 
-**Phase 2 — Preprocessing & Feature Selection**
-- Train/test split (75%/25%)
-- Date format unification, missing value imputation, categorical encoding
-- Feature transformations: Box-Cox and Yeo-Johnson power transforms, standard scaling
-- Feature selection using 5 methods: Chi-squared, F-statistic, RFE with SVC, L1-penalized LinearSVC, and Lasso regression — top features identified as RR, Skin Temperature, SpO₂, and Hb level
-- Reproducible `sklearn.Pipeline` wrapping all preprocessing steps
+- 75/25 train/test split; all fitting done on training set only
+- Power transforms applied per column group: Box-Cox (`PVI`, `Hb level`, `Skin Temperature`, `SpO₂`, `RR`, `FiO₂`, `Blood Flow Index`, `Respiratory effort`, `O₂ extraction ratio`), Yeo-Johnson (`longitude`, `latitude`), standard scaling (`BP`)
+- Feature selection with 5 methods: Chi-squared statistic, F-statistic (`SelectKBest`), RFE with linear SVC, L1-penalized `LinearSVC` with `SelectFromModel`, and Lasso regression — consensus top features: **RR, Skin Temperature, SpO₂, Hb level**
+- Both a manual pipeline and an `sklearn.Pipeline` implemented; the pipeline wraps all preprocessing steps for reproducible application to unseen data
 
-**Phase 3 — Machine Learning**
-- Custom ID3 dichotomizer with build-time pruning (minimum node size, subset balance constraint)
-- Random Forest (scikit-learn), Logistic Regression, Quadratic Discriminant Analysis, MLP Classifier
-- Hyperparameter tuning via `GridSearchCV` with 5–7-fold cross-validation for all models
-- Soft/hard voting Ensemble Model combining Random Forest, MLP, and Logistic Regression
-- Model calibration check (Brier score); Logistic Regression calibrated with `CalibratedClassifierCV`
-- Final model: **Ensemble (hard voting)** — training F1 ~92%, validation F1 ~90%, difference ≤3% indicating no significant overfitting
+## Phase 3 — Modelling & Evaluation
+
+**Models trained:**
+- Custom **ID3 dichotomizer** — entropy-based recursive splits with build-time pruning (minimum node size threshold + child subset balance constraint to prevent degenerate splits)
+- **Random Forest** (`n_estimators=50`, `criterion=gini`, `min_samples_split=10`, `min_samples_leaf=2`)
+- **Logistic Regression** (L1 penalty, `C=0.5`, `solver=liblinear`, balanced class weights)
+- **Quadratic Discriminant Analysis** (`reg_param=0.01`)
+- **MLP Classifier** (layers: 40→30→20, tanh activation, `alpha=0.0001`, `batch_size=40`, Adam)
+- **Ensemble** — hard-voting `VotingClassifier` over Random Forest, MLP, and Logistic Regression
+
+**Tuning & validation:**
+- `GridSearchCV` with 5–7-fold cross-validation per model
+- Logistic Regression calibrated post-tuning using `CalibratedClassifierCV` (sigmoid, cv=5); Brier score checked for RF and MLP (calibration adequate without correction)
+- 5-fold cross-validation on the combined train+validation set for final stability check
+
+**Best model: Ensemble (hard voting)** — training F1 ~92%, validation F1 ~90%, Δ≤3% across folds indicating no significant overfitting.
 
 ## Requirements
 
@@ -43,4 +49,4 @@ pip install pandas numpy scipy statsmodels scikit-learn matplotlib seaborn pingo
 
 ## Usage
 
-Open `project.ipynb` in Jupyter and run all cells. Place the source CSV files under a `Datasets/` directory before running.
+Place source CSVs under `Datasets/` and run `project.ipynb` top to bottom. The `preclean_data()` function can be used to prepare any new raw data before passing it into the fitted pipeline.
